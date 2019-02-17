@@ -84,7 +84,7 @@ class Post(db.Model):
         
         return comments
 
-        
+
 class Comment(db.Model):
      
     __tablename__ = 'comments'
@@ -94,3 +94,17 @@ class Comment(db.Model):
     author = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()   
+    
+    def get_comments(cls):
+        comments =  Comment.query.all()
+        return comments
+    all_comments = []
+
+    def __init__(self,body,author):
+        self.body = body
+        self.author = author
