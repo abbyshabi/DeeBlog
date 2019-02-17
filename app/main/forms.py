@@ -20,3 +20,13 @@ class CommentForm(FlaskForm):
     body = TextAreaField('comment', validators=[Required()])
     author = TextAreaField('By', validators=[Required()])
     submit = SubmitField('Submit')
+
+class SubscribeForm(FlaskForm):
+    name = StringField("Your Name")
+    email = StringField("Email")
+    submit= SubmitField('Subscribe')
+
+class PostUpdateForm(FlaskForm):
+    title = StringField('Blog title',validators=[Required()])
+    body = TextAreaField('Blog', validators=[Required()])
+    submit = SubmitField('Publish') 
