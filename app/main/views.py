@@ -65,4 +65,44 @@ def new_blog(uname):
         posts = Post.query.all()
         return redirect(url_for('main.blog'))
     return render_template('new_blog.html', form = form, title =title)
+@main.route("/delete/<post_id>",methods = ['GET','POST'])
+@login_required
+def delete(post_id):
+    post = Post.query.filter_by(id = post_id).first()
+    #user = User.query.filter_by(username = uname).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('main.blog'))
+
+@main.route("/update/<post_id>", methods= ['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.filter_by(id = post_id).first()
+    form = PostUpdateForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.body = form.body.data
+        db.session.commit()
+        flash('Your post has been updated', 'success')
+        return redirect(url_for('main.blog'))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.body.data = post.body
+
+
+    return render_template('new_blog.html', title='Update Post', form=form)
+
+
+
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    posts = Post.query.filter_by(author_id = user.id)
+    title = user.username
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user = user,posts=posts)
+
         
