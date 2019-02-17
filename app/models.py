@@ -69,3 +69,17 @@ class Post(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     author_name = db.Column(db.Text)
     category = db.Column(db.String)
+
+
+    def save_post(self):
+        '''
+        Function to save a new pitch
+        '''
+        db.session.add(self)
+        db.session.commit()
+
+    def get_post_comments(self):
+        #post = Post.query.filter_by(id = self.id).first()
+        comments = Comment.query.filter_by(post_id = self.id)
+        
+        return comments
