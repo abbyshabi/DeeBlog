@@ -83,3 +83,14 @@ class Post(db.Model):
         comments = Comment.query.filter_by(post_id = self.id)
         
         return comments
+
+        
+class Comment(db.Model):
+     
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.Text)
+    author = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
