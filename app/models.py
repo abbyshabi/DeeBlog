@@ -40,7 +40,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
-
+    posts = db.relationship("Post", backref = "user", lazy = "dynamic")
 
 
     @property
@@ -69,7 +69,7 @@ class Post(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     author_name = db.Column(db.Text)
     category = db.Column(db.String)
-
+    comments = db.relationship("Comment", backref = "comment", lazy = "dynamic")
 
     def save_post(self):
         '''
