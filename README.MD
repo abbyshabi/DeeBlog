@@ -1,5 +1,5 @@
 # DeeBlog
-#### A simple python 3.6 application that fetches allows users read latest news articles from various sources(Febuary,2019)
+#### A simple python 3.6 application that allows writers create blog content and users read different blog posts(Febuary,2019)
 #### By **Oluwadamilola Shabi**
 ## Description
 Dee-Blog is a simple python application that allows users read different blog articles written different authors and also allows readers become authors if they sign up.
